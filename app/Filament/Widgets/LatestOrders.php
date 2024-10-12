@@ -17,6 +17,7 @@ class LatestOrders extends BaseWidget
 
     public function table(Table $table): Table
     {
+
         return $table
             ->query(OrderResource::getEloquentQuery())
             ->defaultPaginationPageOption(5)
@@ -35,7 +36,7 @@ class LatestOrders extends BaseWidget
                 Tables\Columns\TextColumn::make('status')
                     ->badge(),
                 Tables\Columns\TextColumn::make('currency')
-                    ->getStateUsing(fn ($record): ?string => Currency::find($record->currency)?->name ?? null)
+                    ->getStateUsing(fn($record): ?string => Currency::find($record->currency)?->name ?? null)
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('total_price')
@@ -48,7 +49,7 @@ class LatestOrders extends BaseWidget
             ])
             ->actions([
                 Tables\Actions\Action::make('open')
-                    ->url(fn (Order $record): string => OrderResource::getUrl('edit', ['record' => $record])),
+                    ->url(fn(Order $record): string => OrderResource::getUrl('edit', ['record' => $record])),
             ]);
     }
 }
